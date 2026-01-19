@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Campus Security Research Project</title>
+  <style>
+    :root {
+      --primary: #8b1e1e;
+      --secondary: #f5f1ec;
+      --accent: #c9a24d;
+      --text: #2b2b2b;
+    }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      color: var(--text);
+      background: var(--secondary);
+    }
+    header {
+      background: var(--primary);
+      color: #fff;
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    header img {
+      height: 60px;
+    }
+    nav {
+      background: #fff;
+      padding: 0.75rem 2rem;
+      display: flex;
+      gap: 1rem;
+      border-bottom: 1px solid #ddd;
+    }
+    nav button {
+      background: none;
+      border: none;
+      font-size: 1rem;
+      cursor: pointer;
+      padding: 0.5rem 0.75rem;
+    }
+    nav button.active {
+      border-bottom: 3px solid var(--accent);
+      font-weight: 600;
+    }
+    main {
+      padding: 2rem;
+      max-width: 1000px;
+      margin: auto;
+    }
+    section { display: none; }
+    section.active { display: block; }
+    .card {
+      background: #fff;
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      margin-bottom: 1.5rem;
+    }
+    h2 { color: var(--primary); margin-top: 0; }
+    label { display: block; margin-top: 1rem; font-weight: 600; }
+    select, textarea, input {
+      width: 100%;
+      padding: 0.6rem;
+      margin-top: 0.3rem;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    textarea { min-height: 120px; }
+    .btn {
+      margin-top: 1.2rem;
+      padding: 0.7rem 1.5rem;
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    footer {
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.85rem;
+      color: #555;
+    }
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+    .modal-content {
+      background: #fff;
+      padding: 2rem;
+      max-width: 700px;
+      border-radius: 14px;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+  </style>
+</head>
+<body>
+
+<!-- FRONT PAGE -->
+<section id="front" class="active">
+  <main>
+    <div class="card" style="text-align:center;">
+      <img src="logo.png" alt="School Logo" style="height:120px;margin-bottom:1rem;" />
+      <h2>Campus Security Services Research</h2>
+      <p>
+        This academic website is part of a criminology research study entitled:<br><br>
+        <strong>“Students’ Experiences with Campus Security Personnel: Perceptions and Disciplinary Practices”</strong>
+      </p>
+      <p>
+        Your participation is voluntary. All information will be kept confidential and
+        used strictly for research purposes only.
+      </p>
+      <button class="btn" onclick="openTerms()">Proceed</button>
+    </div>
+  </main>
+</section>
+
+<!-- TERMS -->
+<div class="modal" id="termsModal" style="display:none;">
+  <div class="modal-content">
+    <h2>Informed Consent & Terms</h2>
+    <p>
+      By continuing, you confirm that you are willingly sharing your experiences related
+      to campus security, facilities, and interactions within the institution.
+    </p>
+    <h3>Legal Bases</h3>
+    <ul>
+      <li>Republic Act No. 10173 – Data Privacy Act of 2012</li>
+      <li>Republic Act No. 7877 – Anti-Sexual Harassment Act</li>
+      <li>Republic Act No. 11313 – Safe Spaces Act</li>
+    </ul>
+    <p>
+      Reports involving misconduct, harassment, or abuse of authority must be truthful
+      and based on personal experience.
+    </p>
+    <button class="btn" onclick="acceptTerms()">I Agree</button>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div id="content" style="display:none;">
+<header>
+  <img src="logo.png" alt="School Logo" />
+  <h1>Campus Security Research Portal</h1>
+</header>
+
+<nav>
+  <button id="tab1" class="active" onclick="showSection('demographics')">Demographic Profile</button>
+  <button id="tab2" onclick="showSection('experiences')">Campus Experiences</button>
+</nav>
+
+<main>
+  <section id="demographics" class="active">
+    <div class="card">
+      <h2>Demographic Profile</h2>
+      <label>Role</label>
+      <select><option>College Student</option><option>Security Personnel</option><option>Faculty Member</option></select>
+      <label>College / Department</label>
+      <input type="text" />
+      <label>Year Level / Position</label>
+      <input type="text" />
+    </div>
+  </section>
+
+  <section id="experiences">
+    <div class="card">
+      <h2>Campus Experiences / Incident Report</h2>
+      <p>
+        This section allows you to formally report any incident or experience related to
+        campus security services, facilities, logistics, or interactions within the school.
+        All reports are for academic research purposes only.
+      </p>
+
+      <label>Type of Incident</label>
+      <select id="incidentType">
+        <option value="">-- Select Incident Type --</option>
+        <option>Harassment (verbal / non-verbal)</option>
+        <option>Abuse of Authority</option>
+        <option>Unprofessional Conduct</option>
+        <option>Security Negligence</option>
+        <option>Facility / Logistics Issue</option>
+        <option>Other</option>
+      </select>
+
+      <label>Location of Incident</label>
+      <input type="text" id="incidentLocation" placeholder="e.g., Gate 1, Building A, Library" />
+
+      <label>Date of Incident</label>
+      <input type="date" id="incidentDate" />
+
+      <label>Persons Involved (optional)</label>
+      <input type="text" id="incidentPersons" placeholder="e.g., security guard, staff, student" />
+
+      <label>Detailed Description of the Incident</label>
+      <textarea id="incidentDescription" placeholder="Please describe what happened, including how the incident was handled."></textarea>
+
+      <button class="btn" onclick="submitIncident()">Submit Incident Report</button>
+
+      <p style="font-size:0.9rem;color:#666;margin-top:1rem;">
+        Note: Do not include names if you wish to remain anonymous. Reports must be truthful
+        and based on personal experience.
+      </p>
+    </div>
+  </section>
+
+  <section id="thankyou">
+    <div class="card" style="text-align:center;">
+      <h2>Thank You</h2>
+      <p>
+        Your incident report has been recorded for academic research purposes.
+        Thank you for your participation.
+      </p>
+    </div>
+  </section>
+
+  <section id="thankyou">
+    <div class="card" style="text-align:center;">
+      <h2>Thank You for Your Participation</h2>
+      <p>
+        You have completed the website portion of the study. Please ensure that you
+        submit the Google Form questionnaire to officially record your response.
+      </p>
+      <p style="font-size:0.9rem;color:#666;">
+        Your cooperation contributes significantly to this academic research.
+      </p>
+    </div>
+  </section>
+</main>
+
+<footer>© 2026 Academic Research Use Only</footer>
+</div>
+
+<script>
+  function openTerms(){ document.getElementById('termsModal').style.display='flex'; }
+  function acceptTerms(){
+    document.getElementById('termsModal').style.display='none';
+    document.getElementById('front').style.display='none';
+    document.getElementById('content').style.display='block';
+  }
+  function showSection(id){
+    document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));
+    document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    if(id==='demographics'){ document.getElementById('tab1').classList.add('active'); }
+    if(id==='experiences'){ document.getElementById('tab2').classList.add('active'); }
+  }
+
+  function submitIncident(){
+    const data = {
+      role: document.querySelector('select')?.value || '',
+      incidentType: document.getElementById('incidentType').value,
+      location: document.getElementById('incidentLocation').value,
+      date: document.getElementById('incidentDate').value,
+      persons: document.getElementById('incidentPersons').value,
+      description: document.getElementById('incidentDescription').value
+    };
+
+    const csvContent = `Role,Incident Type,Location,Date,Persons Involved,Description\n"${data.role}","${data.incidentType}","${data.location}","${data.date}","${data.persons}","${data.description.replace(/"/g,'""')}"`;
+
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'incident_report.csv';
+    link.click();
+
+    showSection('thankyou');
+  }
+</script>
+</body>
+</html>
